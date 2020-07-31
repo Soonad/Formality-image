@@ -1,48 +1,44 @@
 const fs = require('fs');
+var path = require("path");
 
-async function write_file(path, contents){
-
-}
-
-function image_to_hex(image_array){
-  // console.log("Format image: ", image_array);
-  var b = new Buffer.alloc(2 * 6); //new Buffer.alloc(image_array.length * 6);
-  for(var i=0; i < image_array.length; i++){
-    var pixel = image_array[i];
-    // var b = format_pixel_buffer(image_array[i]);
-    b[i]   = pixel.x;
-    b[i+1] = pixel.y;
-    b[i+2] = 0;
-    b[i+3] = pixel.color.r;
-    b[i+4] = pixel.color.g;
-    b[i+5] = pixel.color.b;
+function image_to_hex(image_info) {
+  // For each pixel, use 6 bytes to write the info
+  var b = new Buffer.alloc(image_info.length * 6);
+  // console.log("Info: ", image_info);
+  for(var i = 0; i < image_info.length; i++){
+    console.log(i);
+    var pixel = image_info[i];
+    b[i*6]   = pixel.x + 120;
+    b[i*6+1] = pixel.y + 120;
+    b[i*6+2] = 0; // z
+    b[i*6+3] = pixel.color.r;
+    b[i*6+4] = pixel.color.g;
+    b[i*6+5] = pixel.color.b;
   }
-  var hex = b.toString("hex");
-  return hex;
-
-}
-/* 
-{ index: number,
-  x: number, 
-  y: number, 
-  color: {
-    r: number,
-    g: number,
-    b: number,
-    a: number
-}} 
-*/
-function format_pixel_buffer(pixel){
-  // 3D image size in Formality = 256 x 256
-  const x_center = 128, y_center = 128, z_center = 0
-  var b = new Buffer.alloc(6);
-  b[0] = pixel.x;
-  b[1] = pixel.y;
-  b[2] = 0;
-  b[3] = pixel.color.r;
-  b[4] = pixel.color.g;
-  b[5] = pixel.color.b;
-  return b;
+  return b.toString("hex");
 }
 
-module.exports = {image_to_hex};
+const file_content = (image_name, image_info) => {
+  var hex_content = image_to_hex(image_info);
+  return "Asset."+image_name+": VoxModel\n" + 
+    '  VoxModel.parse("'+hex_content+'")';
+}
+
+async function save_fm_file(image_name, content){
+  var path = "./fm_images/"+image_name+".fm";
+  try {
+    console.log("Saved "+path);
+    fs.writeFileSync(path, content);
+  } catch (e) {
+    console.log("I couldn't save the file");
+  }
+}
+
+function make_fm_file(image_info, image_name){
+  var only_name = image_name.slice(0,-4);
+  var content = file_content(only_name, image_info);
+  // console.log(content);
+  save_fm_file(only_name, content);
+}
+
+module.exports = {make_fm_file};
