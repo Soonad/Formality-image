@@ -7,24 +7,31 @@ function read_pixel(jimp_image, x, y){
     return pixel;
 }
 
+/*
+  Return the formated pixel for the image
+  - image: a path to a image
+  - return: a format like 
+    {pixel: { index: 1, x: 1, y: 1, color: { r: 255, g: 255, b: 255, a: 255 },
+     width: 16, 
+     height: 16}
+*/
 async function read_image(image){
   return await jimp.read(image)
     .then(image => {
       var height = image.getHeight();
       var width  = image.getWidth();
       var pixels = [];
-      console.log("Image height: ", height);
       for(y = 0; y < height; y++){
         for(x = 0; x < width; x++){
           var pixel_info = read_pixel(image, x, y);
           pixels.push(pixel_info);
         }
       }
-      return pixels;
+      return {pixels, width, height};
     })
     .catch(err => {
       throw err;
     });
 }
 
-module.exports = {read_image};
+module.exports = { read_image };
