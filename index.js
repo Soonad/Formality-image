@@ -24,7 +24,8 @@ function parse_single_image(dirname, image_name){
     .catch( err => console.log("index.js: got an error: ", err) );
 }
 
-parse_dir("./16x16/");
-// parse_single_image("./16x16/bush/", "bush_1_z48.png");
+parse_dir("./moonad_img/");
+// parse_single_image("./moonad_img/", "char_000_z4p.png");
+// Image.rename_images("./temp/casa_dentro_bg/", "home_inside_bg", 11, 8);
 
 // Obs: there is an error with jimp that idk what is, but the code is working

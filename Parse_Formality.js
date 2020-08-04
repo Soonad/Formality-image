@@ -7,30 +7,45 @@ function image_to_hex(image_name, image_info) {
   var height = image_info.height;
   // For each pixel, use 6 bytes to write the info
   var b = new Buffer.alloc(pixels.length * 6);
-  console.log("z for: ",image_name, z_index(image_name));
+  console.log("\nz for: ",image_name, z_index(image_name));
+  var c = 0;
+  var s = z_scale(image_name);
   for(var i = 0; i < pixels.length; i++){
     var pixel = pixels[i];
     if(pixel.color.a !== 0){
-      b[i*6]   = pixel.x + (128 - (width / 2));
-      b[i*6+1] = pixel.y + (128 - (height / 2));
-      b[i*6+2] = z_index(image_name); // z
-      b[i*6+3] = pixel.color.r;
-      b[i*6+4] = pixel.color.g;
-      b[i*6+5] = pixel.color.b;
+      b[c*6]   = pixel.x + (128 - (width / 2));
+      b[c*6+1] = pixel.y + (128 - (height / 2));
+      b[c*6+2] = z_index(image_name) + (s ? (height - pixel.y - 1) : 0); // z
+      b[c*6+3] = pixel.color.r;
+      b[c*6+4] = pixel.color.g;
+      b[c*6+5] = pixel.color.b;
+      // console.log("i: ", i, pixel.y, height, z_index(image_name), b[c*6+2]);
+      c++;
     }
   }
-  return b.toString("hex");
+  return b.slice(0, c * 6).toString("hex");
 }
+
+// [
+//   [(GRASS, z=1)],
+//   [(BUSH_BACK, z=2), (BUSH_FRONT, z=16)]
+//   [(HERO, z=4..28), (BUSH_ANIM, z=30)]
+// ]
 
 // Return the value of the z_index
 const z_index = (image_name) => {
   var z_index = has_z_index(image_name);
-  return z_index ? z_index.split("z")[1] : 16;
+  return z_index ? Number(z_index.split("z")[1].replace("p", "")) : 2;
+}
+
+const z_scale = (image_name) => {
+  var z_index = has_z_index(image_name);
+  return z_index ? z_index.includes("p") : false;
 }
 
 // Return the match of z_index given a Regex if name have it
 const has_z_index = (image_name) => {
-  var match = new RegExp("z+[0-9]");
+  var match = new RegExp("z[0-9]+p?");
   var match_name = match.exec(image_name);
   return match_name ? match_name[0] : null;
 }

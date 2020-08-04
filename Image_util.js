@@ -1,4 +1,5 @@
 const jimp = require('jimp');
+const fs = require('fs');
 
 function read_pixel(jimp_image, x, y){
     var pixel_color = jimp.intToRGBA(jimp_image.getPixelColour(x, y));
@@ -34,4 +35,28 @@ async function read_image(image){
     });
 }
 
-module.exports = { read_image };
+// Rename images downloaded from 
+// https://www.imgonline.com.ua/eng/cut-photo-into-pieces-result.php
+function rename_images(folder, image_name, width, height){
+  var files = fs.readdirSync(folder);
+  console.log("Renaming images in: "+folder);
+  var new_names = [];
+
+  for(var i = 0; i < width; i++){
+    for(var j = 0; j < height; j++){
+      var new_name = image_name+"_"+i+"_"+j+".png";
+      new_names.push(new_name);
+    }
+  }
+  
+  for(var i = 0; i < files.length; i++){
+    console.log(folder+files[i]);
+    fs.rename(folder+files[i], folder+new_names[i], (error) => {
+      var output = error ? error : "File renamed! "+files[i]+" -> "+new_names[i];
+      console.log(output);
+    });
+  }
+
+}
+
+module.exports = { read_image, rename_images };
