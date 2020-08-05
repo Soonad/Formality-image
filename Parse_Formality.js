@@ -68,7 +68,7 @@ const z_index = (image_name) => {
   return z_index ? Number(z_index.split("z")[1].replace("p", "")) : 2;
 }
 
-// Return true if the z_index with scale based on the "y"
+// Return true if z_index will scale based on the "y"
 const z_scale = (image_name) => {
   var z_index = has_z_index(image_name);
   return z_index ? z_index.includes("p") : false;
@@ -91,13 +91,14 @@ const term_name = (image_name) => {
 // Content to be on .fm file
 const file_content = (image_name, image_info) => {
   var hex_content = image_to_hex(image_name, image_info);
-  var z_index_comment = "// z_index: "+z_index(image_name)+"\n";
-  return z_index_comment+"Mons.Assets."+term_name(image_name)+": Image3D\n" + 
+  var z_index_comment = "// z_index: "+z_index(image_name);
+  var scale = has_z_index(image_name) ? ", will scale on y\n" : "\n";
+  return z_index_comment+scale+"Mons.Assets."+term_name(image_name)+": Image3D\n" + 
     '  Image3D.parse("'+hex_content+'")';
 }
 
 async function save_fm_file(image_name, content){
-  var path = "./fm_images/"+"Mons.assets."+term_name(image_name)+".fm";
+  var path = "./fm_images/"+"Mons.Assets."+term_name(image_name)+".fm";
   try {
     fs.writeFileSync(path, content);
     return "Saved "+path;

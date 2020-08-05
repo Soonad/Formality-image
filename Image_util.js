@@ -36,7 +36,7 @@ async function read_image(image){
 }
 
 // Rename images downloaded from 
-// https://www.imgonline.com.ua/eng/cut-photo-into-pieces-result.php
+// https://www.imgonline.com.ua/eng/cut-photo-into-pieces.php
 // - folder: a path to a folder
 // - image_name: new name for the images
 // - width : amount of tiles cut in the horizontal
