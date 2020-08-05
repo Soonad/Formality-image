@@ -2,7 +2,7 @@
 
 Reads a directory or file and creates a `.fm` file for each image.
 
-**Image Util:** read and format format information about every pixel in an image
+**Image Util:** read and format format information about every pixel in an image  
 **Parse Formality:** prepares and save a `.fm` file formatted for `Mons.Assets.`
 
 ### Usage
