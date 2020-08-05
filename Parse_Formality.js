@@ -1,6 +1,35 @@
 const fs = require('fs');
 var path = require("path");
 
+// Personagem: Mons.Assets.name_dir_frame.fm
+// - Mons.Assets.boy_l_0.fm // standing
+// - Mons.Assets.boy_l_1.fm // walking
+// - Mons.Assets.boy_l_2.fm // walking
+
+// Arquitetura: Mons.Assets.name_xy.fm
+// - Mons.Assets.house_00.fm // x=0, y=0
+// - Mons.Assets.house_10.fm // x=1, y=0
+// - Mons.Assets.house_20.fm // x=2, y=0
+
+// Chão: Mons.Assets.name.fm ou Mons.Assets.name.fm
+// - Mons.Assets.grass.fm    // tile
+// - Mons.Assets.grass_u.fm  // border up
+// - Mons.Assets.grass_l.fm  // border left
+// - Mons.Assets.grass_ru.fm // border right-up
+// - Mons.Assets.grass_lu.fm // border left-up
+// - Mons.Assets.grass_rd.fm // border right-down
+// - Mons.Assets.grass_o.fm  // border circle
+
+// Item: Mons.Assets.name_frame.fm
+// - Mons.Assets.flower_0.fm // frame 0
+// - Mons.Assets.flower_1.fm // frame 1
+
+// lrd           : left right up
+// l | r | d | u : left, right, down, up
+// o             : circle
+
+
+
 function image_to_hex(image_name, image_info) {
   var pixels = image_info.pixels;
   var width  = image_info.width;
@@ -26,6 +55,7 @@ function image_to_hex(image_name, image_info) {
   return b.slice(0, c * 6).toString("hex");
 }
 
+// Example
 // [
 //   [(GRASS, z=1)],
 //   [(BUSH_BACK, z=2), (BUSH_FRONT, z=16)]
@@ -38,6 +68,7 @@ const z_index = (image_name) => {
   return z_index ? Number(z_index.split("z")[1].replace("p", "")) : 2;
 }
 
+// Return true if the z_index with scale based on the "y"
 const z_scale = (image_name) => {
   var z_index = has_z_index(image_name);
   return z_index ? z_index.includes("p") : false;
@@ -60,7 +91,8 @@ const term_name = (image_name) => {
 // Content to be on .fm file
 const file_content = (image_name, image_info) => {
   var hex_content = image_to_hex(image_name, image_info);
-  return "Mons.assets."+term_name(image_name)+": Image3D\n" + 
+  var z_index_comment = "// z_index: "+z_index(image_name)+"\n";
+  return z_index_comment+"Mons.Assets."+term_name(image_name)+": Image3D\n" + 
     '  Image3D.parse("'+hex_content+'")';
 }
 

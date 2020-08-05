@@ -44,7 +44,7 @@ function rename_images(folder, image_name, width, height){
 
   for(var i = 0; i < width; i++){
     for(var j = 0; j < height; j++){
-      var new_name = image_name+"_"+i+"_"+j+".png";
+      var new_name = image_name+"_"+i+""+j+".png";
       new_names.push(new_name);
     }
   }
