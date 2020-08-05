@@ -24,8 +24,13 @@ function parse_single_image(dirname, image_name){
     .catch( err => console.log("index.js: got an error: ", err) );
 }
 
+// Runs the script in a folder
 parse_dir("./moonad_img/");
+
+// Runs the script for a single file
 // parse_single_image("./moonad_img/", "char_000_z4p.png");
+
+// Rename images in a folder
 // Image.rename_images("./temp/casa_dentro_bg/", "home_inside_bg", 11, 8);
 
-// Obs: there is an error with jimp that idk what is, but the code is working
+// Obs: there is an error with jimp that idk what it is, but the code is working

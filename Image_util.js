@@ -37,6 +37,12 @@ async function read_image(image){
 
 // Rename images downloaded from 
 // https://www.imgonline.com.ua/eng/cut-photo-into-pieces-result.php
+// - folder: a path to a folder
+// - image_name: new name for the images
+// - width : amount of tiles cut in the horizontal
+// - height: amount of tiles cut in the vertical
+// Ex: image of 64x32 cut in tiles of 16x16 gives 4 horizontal tiles 
+// and 2 vertical
 function rename_images(folder, image_name, width, height){
   var files = fs.readdirSync(folder);
   console.log("Renaming images in: "+folder);
@@ -50,7 +56,7 @@ function rename_images(folder, image_name, width, height){
   }
   
   for(var i = 0; i < files.length; i++){
-    console.log(folder+files[i]);
+    // console.log(folder+files[i]);
     fs.rename(folder+files[i], folder+new_names[i], (error) => {
       var output = error ? error : "File renamed! "+files[i]+" -> "+new_names[i];
       console.log(output);
