@@ -60,7 +60,7 @@ Mons.font.map: Mons.font
   let map = Map.new<Image3D>
 `
   fm_char_imgs.map(name => {
-    if(name !== "Mons.font.fm"){
+    if(name !== "Mons.font.fm" && name !== ".DS_Store"){
       var char_code = get_char_code(name);
       var char_name = String.fromCharCode(char_code);
       content += "  let map_img = Mons.font.set_img("+char_code+"s, "+name+", map) // add "+char_name+"\n";
