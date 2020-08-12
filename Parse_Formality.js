@@ -148,8 +148,9 @@ const term_name = (image_name) => {
 const file_content = (image_name, image_info) => {
   var hex_content = image_to_hex(image_name, image_info);
   var z_index_comment = "// z_index: "+z_index(image_name);
+  var caractere = "// caractere: "+String.fromCharCode(image_name)+"\n";
   var scale = has_z_index(image_name) ? ", will scale on y\n" : "\n";
-  return z_index_comment+scale+"Mons.Char."+term_name(image_name)+": Image3D\n" + 
+  return z_index_comment+scale+caractere+"Mons.Char."+term_name(image_name)+": Image3D\n" + 
     '  Image3D.parse("'+hex_content+'")';
 }
 
