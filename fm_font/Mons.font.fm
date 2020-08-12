@@ -1,0 +1,21 @@
+
+Mons.font: Type
+  Map(Image3D)
+
+// Adds an Image3D to a char on the map
+Mons.font.set_img(char: Char, img: Image3D, map: Mons.font): Mons.font
+  Map.set<>(U16.to_bits(char), img, map)
+
+// Get the image given a map
+Mons.font.get_img(char: Char, map: Mons.font): Maybe(Image3D)
+  case Map.get<>(U16.to_bits(char), map) as got:
+  | Maybe.none<Image3D>;
+  | Maybe.some<Image3D>(got.value); 
+
+// Creates a Map of [{key: Char, value: Image3D}]
+Mons.font.map: Mons.font
+  let map = Map.new<Image3D>
+  let map_img = Mons.font.set_img(80s, Mons.Char.80.fm, map) // add P
+  let map_img = Mons.font.set_img(81s, Mons.Char.81.fm, map) // add Q
+  let map_img = Mons.font.set_img(82s, Mons.Char.82.fm, map) // add R
+  map_img

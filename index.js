@@ -2,8 +2,8 @@ var Image = require("./Image_util.js");
 var Formality_aux = require("./Parse_Formality.js");
 var fs = require("fs");
 
-function parse_dir(dirname){
-  fs.readdir(dirname, function(err, filenames) {
+async function parse_dir(dirname){
+  await fs.readdir(dirname, function(err, filenames) {
     if (err) {
       console.log(err);
       return;
@@ -21,11 +21,27 @@ function parse_single_image(dirname, image_name){
       .then ( res => console.log(res) )
       .catch( err => console.log(err) )
     )
-    .catch( err => console.log("index.js: got an error: ", err) );
+    // note: this error this happening but the code works
+    .catch( err => console.warn("\nindex.js: got an error of MIME for Buffer in Jimp") );
+}
+
+function set_font_content(dirname){
+  fs.readdir(dirname, function(err, filenames) {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    Formality_aux.set_font_content(filenames)
+    .then(res => console.log(res+"\n"))
+    .catch(err => console.log(err))
+  })
 }
 
 // Runs the script in a folder
-parse_dir("./moonad_img/");
+parse_dir("./moonad_img/font/")
+.then(() => { set_font_content("./fm_font/") })
+.catch((err) => console.log(err));
+
 
 // Runs the script for a single file
 // parse_single_image("./moonad_img/", "char_000_z4p.png");
