@@ -46,15 +46,25 @@ Mons.font.get_img(char: Char, map: Mons.font): Maybe(Image3D)
   | Maybe.some<Image3D>(got.value); \n
 `
   var map = set_font_map(fm_char_imgs);
-  var content = funcs + map;
+  var test =
+`\n
+Mons.font.test_0: Maybe(Image3D)
+  Mons.font.get_img(0s, Mons.font.map)
+
+Mons.font.test_1: Maybe(Image3D)
+  Mons.font.get_img(50s, Mons.font.map)
+`
+  var content = funcs + map + test;
   // Save it
   return save_font_file(content);
 }
 
 // Creates a Formality Map with [{key: Char, value: Image3D}]
 function set_font_map(fm_char_imgs){
+  var qtd_files = fm_char_imgs.length - 2; // remove Mons.font.fm and .DS_Store
   var content =
 `// Creates a Map of [{key: Char, value: Image3D}]
+// Qtd characters: ${qtd_files}
 Mons.font.map: Mons.font
   let map = Map.new<Image3D>
 `
@@ -63,10 +73,10 @@ Mons.font.map: Mons.font
       var nane_form = name.slice(0, -3);
       var char_code = get_char_code(name);
       var char_name = String.fromCharCode(char_code);
-      content += "  let map_img = Mons.font.set_img("+char_code+"s, "+nane_form+", map) // add "+char_name+"\n";
+      content += "  let map = Mons.font.set_img("+char_code+"s, "+nane_form+", map) // add "+char_name+"\n";
     }
   })
-  content += "  map_img";
+  content += "  map";
   return content;
 }
 
