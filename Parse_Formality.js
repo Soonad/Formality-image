@@ -32,8 +32,7 @@ var path = require("path");
 // ------------
 async function set_font_content(fm_char_imgs){
   var funcs =
-`
-Mons.font: Type
+`Mons.font: Type
   Map(Image3D)
 
 // Adds an Image3D to a char on the map
@@ -61,9 +60,10 @@ Mons.font.map: Mons.font
 `
   fm_char_imgs.map(name => {
     if(name !== "Mons.font.fm" && name !== ".DS_Store"){
+      var nane_form = name.slice(0, -3);
       var char_code = get_char_code(name);
       var char_name = String.fromCharCode(char_code);
-      content += "  let map_img = Mons.font.set_img("+char_code+"s, "+name+", map) // add "+char_name+"\n";
+      content += "  let map_img = Mons.font.set_img("+char_code+"s, "+nane_form+", map) // add "+char_name+"\n";
     }
   })
   content += "  map_img";
