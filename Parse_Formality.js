@@ -36,7 +36,7 @@ function image_to_hex(image_name, image_info) {
   var height = image_info.height;
   // For each pixel, use 6 bytes to write the info
   var b = new Buffer.alloc(pixels.length * 6);
-  console.log("\nz for: ",image_name, z_index(image_name));
+  // console.log("\nz for: ",image_name, z_index(image_name));
   var c = 0;
   var s = z_scale(image_name);
   for(var i = 0; i < pixels.length; i++){
@@ -92,7 +92,7 @@ const term_name = (image_name) => {
 const file_content = (image_name, image_info) => {
   var hex_content = image_to_hex(image_name, image_info);
   var z_index_comment = "// z_index: "+z_index(image_name);
-  var scale = has_z_index(image_name) ? ", will scale on y\n" : "\n";
+  var scale = z_scale(image_name) ? ", will scale on y\n" : "\n";
   return z_index_comment+scale+"Mons.Assets."+term_name(image_name)+": Image3D\n" + 
     '  Image3D.parse("'+hex_content+'")';
 }

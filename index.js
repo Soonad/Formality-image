@@ -21,14 +21,14 @@ function parse_single_image(dirname, image_name){
       .then ( res => console.log(res) )
       .catch( err => console.log(err) )
     )
-    .catch( err => console.log("index.js: got an error: ", err) );
+    .catch( err => console.warn("index.js: got an error of MIME for Buffer from Jimp") );
 }
 
 // Runs the script in a folder
-parse_dir("./moonad_img/");
+parse_dir("./img/terrain/");
 
 // Runs the script for a single file
-// parse_single_image("./moonad_img/", "char_000_z4p.png");
+// parse_single_image("./moonad_img/Mons/", "fight_beholder_d_2_z4p.png");
 
 // Rename images in a folder
 // Image.rename_images("./temp/casa_dentro_bg/", "home_inside_bg", 11, 8);
