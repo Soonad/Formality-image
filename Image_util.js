@@ -22,9 +22,6 @@ async function read_image(image_path){
       var height = image.getHeight();
       var width  = image.getWidth();
       var pixels = [];
-      if(width > 16){
-        throw image_path+" is bigger than 16px";
-      }
       for(y = 0; y < height; y++){
         for(x = 0; x < width; x++){
           var pixel_info = read_pixel(image, x, y);

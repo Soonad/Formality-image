@@ -25,7 +25,7 @@ function parse_single_image(dirname, image_name){
 }
 
 // Runs the script in a folder
-parse_dir("./img/terrain/");
+parse_dir("./img/battle/");
 
 // Runs the script for a single file
 // parse_single_image("./moonad_img/Mons/", "fight_beholder_d_2_z4p.png");
