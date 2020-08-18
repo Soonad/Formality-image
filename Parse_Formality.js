@@ -97,8 +97,8 @@ const file_content = (image_name, image_info) => {
     '  Image3D.parse("'+hex_content+'")';
 }
 
-async function save_fm_file(image_name, content){
-  var path = "./fm_images/"+"Mons.Assets."+term_name(image_name)+".fm";
+async function save_fm_file(folder, image_name, content){
+  var path = "./fm_images/"+folder+"/"+"Mons.Assets."+term_name(image_name)+".fm";
   try {
     fs.writeFileSync(path, content);
     return "Saved "+path;
@@ -107,11 +107,12 @@ async function save_fm_file(image_name, content){
   }
 }
 
-function make_fm_file(image_info, image_name){
+function make_fm_file(dirname, image_info, image_name){
   var only_name = image_name.slice(0,-4);
+  var folder_name = dirname.split("/")[2];
   var content = file_content(only_name, image_info);
   // console.log(image_info);
-  return save_fm_file(only_name, content);
+  return save_fm_file(folder_name, only_name, content);
 }
 
 module.exports = { make_fm_file };
