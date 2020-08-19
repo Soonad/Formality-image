@@ -1,0 +1,3 @@
+// z_index: 2
+Mons.Assets.32: Image3D
+  Image3D.parse("")

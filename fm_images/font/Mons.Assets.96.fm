@@ -1,0 +1,3 @@
+// z_index: 2
+Mons.Assets.96: Image3D
+  Image3D.parse("7e7b020000007f7c02000000807d02000000")

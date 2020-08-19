@@ -17,7 +17,7 @@ function parse_single_image(dirname, image_name){
   Image.read_image(dirname + image_name)
     .then( image_info => 
       // Create a .fm format file and save it in /fm_images
-      Formality_aux.make_fm_file(image_info, image_name)
+      Formality_aux.make_fm_file(dirname, image_info, image_name)
       .then ( res => console.log(res) )
       .catch( err => console.log(err) )
     )
@@ -25,10 +25,10 @@ function parse_single_image(dirname, image_name){
 }
 
 // Runs the script in a folder
-parse_dir("./img/battle/");
+parse_dir("./img/construction/pokemon_home/");
 
 // Runs the script for a single file
-// parse_single_image("./moonad_img/Mons/", "fight_beholder_d_2_z4p.png");
+// parse_single_image("./img/construction/", "tent_01_z4p.png");
 
 // Rename images in a folder
 // Image.rename_images("./temp/casa_dentro_bg/", "home_inside_bg", 11, 8);
