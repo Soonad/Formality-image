@@ -32,29 +32,22 @@ var path = require("path");
 // ------------
 async function set_font_content(fm_char_imgs){
   var funcs =
-`Mons.font: Type
-  Map(Image3D)
+`
+// Mons.font: Type
+//   Map(Image3D)
 
-// Adds an Image3D to a char on the map
-Mons.font.set_img(char: Char, img: Image3D, map: Mons.font): Mons.font
-  Map.set<>(U16.to_bits(char), img, map)
+// // Adds an Image3D to a char on the map
+// Mons.font.set_img(char: Char, img: Image3D, map: Mons.font): Mons.font
+//   Map.set<>(U16.to_bits(char), img, map)
 
 // Get the image given a map
-Mons.font.get_img(char: Char, map: Mons.font): Maybe(Image3D)
-  case Map.get<>(U16.to_bits(char), map) as got:
-  | Maybe.none<Image3D>;
-  | Maybe.some<Image3D>(got.value); \n
+// Mons.font.get_img(char: Char, map: Mons.font): Maybe(Image3D)
+//   case Map.get<>(U16.to_bits(char), map) as got:
+//   | Maybe.none<Image3D>;
+//   | Maybe.some<Image3D>(got.value); \n
 `
   var map = set_font_map(fm_char_imgs);
-  var test =
-`\n
-Mons.font.test_0: Maybe(Image3D)
-  Mons.font.get_img(0s, Mons.font.map)
-
-Mons.font.test_1: Maybe(Image3D)
-  Mons.font.get_img(50s, Mons.font.map)
-`
-  var content = funcs + map + test;
+  var content = funcs + map;
   // Save it
   return save_font_file(content);
 }
@@ -65,11 +58,11 @@ function set_font_map(fm_char_imgs){
   var content =
 `// Creates a Map of [{key: Char, value: Image3D}]
 // Qtd characters: ${qtd_files}
-Mons.font.map: Mons.font
+Mons.font_black.map: Mons.font
   let map = Map.new<Image3D>
 `
   fm_char_imgs.map(name => {
-    if(name !== "Mons.font.fm" && name !== ".DS_Store"){
+    if(name !== "Mons.font.fm" && name !== "Mons.font_black.fm" && name !== ".DS_Store"){
       var nane_form = name.slice(0, -3);
       var char_code = get_char_code(name);
       var char_name = String.fromCharCode(char_code);
@@ -85,7 +78,7 @@ function get_char_code(fm_char_img){
 }
 
 async function save_font_file(content){
-  var path = "./fm_font/"+"Mons.font.fm";
+  var path = "./fm_font/"+"Mons.font_black.fm";
   try {
     fs.writeFileSync(path, content);
     return "Saved "+path;
@@ -160,12 +153,12 @@ const file_content = (image_name, image_info) => {
   var z_index_comment = "// z_index: "+z_index(image_name);
   var caractere = "// caractere: "+String.fromCharCode(image_name)+"\n";
   var scale = has_z_index(image_name) ? ", will scale on y\n" : "\n";
-  return z_index_comment+scale+caractere+"Mons.Char."+term_name(image_name)+": Image3D\n" + 
+  return z_index_comment+scale+caractere+"Mons.Char_black."+term_name(image_name)+": Image3D\n" + 
     '  Image3D.parse("'+hex_content+'")';
 }
 
 async function save_fm_file(image_name, content){
-  var path = "./fm_font/"+"Mons.Char."+term_name(image_name)+".fm";
+  var path = "./fm_font/"+"Mons.Char_black."+term_name(image_name)+".fm";
   try {
     fs.writeFileSync(path, content);
     return "Saved "+path;

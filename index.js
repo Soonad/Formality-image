@@ -21,30 +21,17 @@ function parse_single_image(dirname, image_name){
       .then ( res => console.log(res) )
       .catch( err => console.log(err) )
     )
-    // note: this error this happening but the code works
-    .catch( err => console.warn("\nindex.js: got an error of MIME for Buffer in Jimp") );
-}
-
-function set_font_content(dirname){
-  fs.readdir(dirname, function(err, filenames) {
-    if (err) {
-      console.log(err);
-      return;
-    }
-    Formality_aux.set_font_content(filenames)
-    .then(res => console.log(res+"\n"))
-    .catch(err => console.log(err))
-  })
+    .catch( err => console.warn(err));//"index.js: got an error of MIME for Buffer from Jimp") );
 }
 
 // Runs the script in a folder
-parse_dir("./moonad_img/font/")
+parse_dir("./img/font/")
 .then(() => { set_font_content("./fm_font/") })
 .catch((err) => console.log(err));
 
 
 // Runs the script for a single file
-// parse_single_image("./moonad_img/", "char_000_z4p.png");
+// parse_single_image("./img/construction/", "tent_01_z4p.png");
 
 // Rename images in a folder
 // Image.rename_images("./temp/casa_dentro_bg/", "home_inside_bg", 11, 8);
