@@ -58,11 +58,11 @@ function set_font_map(fm_char_imgs){
   var content =
 `// Creates a Map of [{key: Char, value: Image3D}]
 // Qtd characters: ${qtd_files}
-Mons.font_white.map: Mons.font
+Mons.font_black.map: Mons.font
   let map = Map.new<Image3D>
 `
   fm_char_imgs.map(name => {
-    if(name !== "Mons.font.fm" && name !== "Mons.font_white.fm" && name !== ".DS_Store"){
+    if(name !== "Mons.font.fm" && name !== "Mons.font_black.fm" && name !== ".DS_Store"){
       var nane_form = name.slice(0, -3);
       var char_code = get_char_code(name);
       var char_name = String.fromCharCode(char_code);
@@ -78,7 +78,7 @@ function get_char_code(fm_char_img){
 }
 
 async function save_font_file(content){
-  var path = "./fm_font/"+"Mons.font_white.fm";
+  var path = "./fm_font/"+"Mons.font_black.fm";
   try {
     fs.writeFileSync(path, content);
     return "Saved "+path;
@@ -153,12 +153,12 @@ const file_content = (image_name, image_info) => {
   var z_index_comment = "// z_index: "+z_index(image_name);
   var caractere = "// caractere: "+String.fromCharCode(image_name)+"\n";
   var scale = has_z_index(image_name) ? ", will scale on y\n" : "\n";
-  return z_index_comment+scale+caractere+"Mons.Char_white."+term_name(image_name)+": Image3D\n" + 
+  return z_index_comment+scale+caractere+"Mons.Char_black."+term_name(image_name)+": Image3D\n" + 
     '  Image3D.parse("'+hex_content+'")';
 }
 
 async function save_fm_file(image_name, content){
-  var path = "./fm_font/"+"Mons.Char_white."+term_name(image_name)+".fm";
+  var path = "./fm_font/"+"Mons.Char_black."+term_name(image_name)+".fm";
   try {
     fs.writeFileSync(path, content);
     return "Saved "+path;

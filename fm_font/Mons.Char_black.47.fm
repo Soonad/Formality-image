@@ -1,4 +1,4 @@
 // z_index: 30
 // caractere: /
 Mons.Char_black.47: Image3D
-  Image3D.parse("817c1effffff807d1effffff807e1effffff7f7f1effffff7f801effffff7e811effffff7e821effffff7d831effffff")
+  Image3D.parse("817c1e000000807d1e000000807e1e0000007f7f1e0000007f801e0000007e811e0000007e821e0000007d831e000000")
