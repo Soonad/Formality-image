@@ -25,8 +25,8 @@ function parse_single_image(dirname, image_name){
 }
 
 // Runs the script in a folder
-parse_dir("./img/font/")
-.then(() => { set_font_content("./fm_font/") })
+parse_dir("./img/font_normal_w/")
+.then(() => { set_font_content("./fm_font/font_normal_w/") })
 .catch((err) => console.log(err));
 
 
