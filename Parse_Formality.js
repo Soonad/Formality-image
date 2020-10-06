@@ -77,14 +77,16 @@ function get_char_code(fm_char_img){
   return  fm_char_img.split(".")[2]; // name like "Mons.Char.01.fm"
 }
 
+// IMPORTANT: this file must be updated manually due to the extra 
+// symbols like ① ②. Their code is the HTML code related to the unicode symbol
 async function save_font_file(content){
-  var path = "./fm_font/font_black/"+"Mons.font_black.fm";
-  try {
-    fs.writeFileSync(path, content);
-    return "Saved "+path;
-  } catch (e) {
-    throw e;
-  }
+  // var path = "./fm_font/font_black/"+"Mons.font_black.fm";
+  // try {
+  //   fs.writeFileSync(path, content);
+  //   return "Saved "+path;
+  // } catch (e) {
+  //   throw e;
+  // }
 }
 
 
