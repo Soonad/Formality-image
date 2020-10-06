@@ -58,7 +58,7 @@ function set_font_map(fm_char_imgs){
   var content =
 `// Creates a Map of [{key: Char, value: Image3D}]
 // Qtd characters: ${qtd_files}
-Mons.font_black.map: Mons.font
+Mons.font_black: Mons.font
   let map = Map.new<Image3D>
 `
   fm_char_imgs.map(name => {
@@ -78,7 +78,7 @@ function get_char_code(fm_char_img){
 }
 
 async function save_font_file(content){
-  var path = "./fm_font/"+"Mons.font_black.fm";
+  var path = "./fm_font/font_black/"+"Mons.font_black.fm";
   try {
     fs.writeFileSync(path, content);
     return "Saved "+path;
@@ -158,7 +158,7 @@ const file_content = (image_name, image_info) => {
 }
 
 async function save_fm_file(image_name, content){
-  var path = "./fm_font/"+"Mons.Char_black."+term_name(image_name)+".fm";
+  var path = "./fm_font/font_black/"+"Mons.Char_black."+term_name(image_name)+".fm";
   try {
     fs.writeFileSync(path, content);
     return "Saved "+path;

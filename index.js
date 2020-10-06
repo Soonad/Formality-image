@@ -24,9 +24,19 @@ function parse_single_image(dirname, image_name){
     .catch( err => console.warn(err));//"index.js: got an error of MIME for Buffer from Jimp") );
 }
 
+async function set_dicionary(dirname){
+  await fs.readdir(dirname, function(err, filenames) {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    Formality_aux.set_font_content(filenames);
+  })
+}
+
 // Runs the script in a folder
-parse_dir("./img/font/")
-.then(() => { set_font_content("./fm_font/") })
+parse_dir("./img/font_normal/")
+.then(() => { set_dicionary("./fm_font/font_black/") })
 .catch((err) => console.log(err));
 
 
