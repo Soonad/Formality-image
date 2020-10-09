@@ -4,12 +4,17 @@ var Image = require("./Image_util.js");
 
 const blocked = { r: 44, g: 51, b: 61, a: 255 }
 const map_path = { r: 101, g: 108, b: 127, a: 255 }
-const others = { r: 132, g: 42, b: 88, a: 255 }
+const construction = { r: 132, g: 42, b: 88, a: 255 }
+const mon = { r: 223, g: 62, b: 70, a: 255 }
+const portal = { r: 130, g: 200, b: 172, a: 255 }
 
 const code_reference = { 
   blocked: "bb",
   map_path: ".g",
-  others: "pg"
+  construction: "pg",
+  mon: "()",
+  portal: "ch",
+  other: "S0"
 }
 var image_name = "lvl0.png";
 
@@ -26,6 +31,7 @@ function main(){
         line = "";
       }
     })
+
     save_fm_file(image_name, map_content)
     .then(res => console.log(res))
     .catch(err => console.log(err));
@@ -42,10 +48,14 @@ function get_color_is_equal(pixel, code_reference){
     return code_reference.blocked;
   } else if (is_same_color(pixel.color, map_path)) {
     return code_reference.map_path;
-  } else if (is_same_color(pixel.color, others)) {
-    return code_reference.others;
+  } else if (is_same_color(pixel.color, construction)) {
+    return code_reference.construction;
+  } else if (is_same_color(pixel.color, mon)) {
+    return code_reference.mon;
+  } else if (is_same_color(pixel.color, portal)) {
+    return code_reference.portal;
   } else {
-    return "._";
+    return code_reference.other;
   }
 }
 

@@ -25,7 +25,7 @@ function parse_single_image(dirname, image_name){
 }
 
 // Runs the script in a folder
-parse_dir("./img/construction/");
+parse_dir("./img/screen/");
 
 // Runs the script for a single file
 // parse_single_image("./img/construction/", "tent_01_z4p.png");
