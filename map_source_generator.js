@@ -16,11 +16,11 @@ const code_reference = {
   portal: "ch",
   other: "S0"
 }
-var image_name = "lvl0.png";
+var image_name = "lvl1.png";
 
 function main(){
   var map_content = "";
-  Image.read_image("temp/"+image_name)
+  Image.read_image("img/maps/"+image_name)
   .then( image_info => {
     const pixels = image_info.pixels;
     var line = "";
