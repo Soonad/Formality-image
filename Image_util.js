@@ -35,6 +35,27 @@ async function read_image(image_path){
     });
 }
 
+async function read_big_image(image_path){
+  return await jimp.read(image_path)
+    .then(image => {
+      const height = image.getHeight();
+      const width  = image.getWidth();
+      const width_small = width/16;
+      const height_small = height/16;
+      var pixels = [];
+      for(y = 0; y < height; y += 16){
+        for(x = 0; x < width; x += 16){
+          var pixel_info = read_pixel(image, (x + 8), (y + 8));
+          pixels.push(pixel_info);
+        }
+      }
+      return {pixels, width: width_small, height: height_small};
+    })
+    .catch(err => {
+      throw err;
+    });
+}
+
 // Rename images downloaded from 
 // https://www.imgonline.com.ua/eng/cut-photo-into-pieces.php
 // - folder: a path to a folder
@@ -65,4 +86,4 @@ function rename_images(folder, image_name, width, height){
 
 }
 
-module.exports = { read_image, rename_images };
+module.exports = { read_image, rename_images, read_big_image };
