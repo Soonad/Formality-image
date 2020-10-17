@@ -43,8 +43,8 @@ async function read_big_image(image_path){
       const width_small = width/16;
       const height_small = height/16;
       var pixels = [];
-      for(y = 0; y < height; y += 16){
-        for(x = 0; x < width; x += 16){
+      for(var y = 0; y < height; y += 16){
+        for(var x = 0; x < width; x += 16){
           var pixel_info = read_pixel(image, (x + 8), (y + 8));
           pixels.push(pixel_info);
         }
