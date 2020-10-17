@@ -2,65 +2,117 @@ const fs = require('fs');
 var path = require("path");
 var Image = require("./Image_util.js");
 
-const blocked = { r: 44, g: 51, b: 61, a: 255 }
+const blocked = { r: 0, g: 0, b: 0, a: 255 }
 const map_path = { r: 101, g: 108, b: 127, a: 255 }
 const construction = { r: 132, g: 42, b: 88, a: 255 }
 const mon = { r: 223, g: 62, b: 70, a: 255 }
 const portal = { r: 130, g: 200, b: 172, a: 255 }
 const map_path2 = { r: 114, g: 122, b: 142, a: 255 }
-const casa0_0 = { r: 118, g: 68, b: 138, a: 255 }
-const casa0_1 = { r: 89, g: 86, b: 82, a: 255 }
-const casa0_2 = { r: 105, g: 106, b: 106, a: 255 }
-const casa1_0 = { r: 174, g: 89, b: 178, a: 255 }
-const casa1_1 = { r: 142, g: 74, b: 157, a: 255 }
-const casa1_2 = { r: 74, g: 43, b: 113, a: 255 }
-const casa1_3 = { r: 52, g: 33, b: 99, a: 255 }
-const casa2_0 = { r: 91, g: 110, b: 225, a: 255 }
-const casa2_1 = { r: 99, g: 155, b: 255, a: 255 }
-const casa2_2 = { r: 95, g: 205, b: 228, a: 255 }
-const casa2_3 = { r: 203, g: 219, b: 252, a: 255 }
-const casa3_0 = { r: 75, g: 105, b: 47, a: 255 }
-const casa3_1 = { r: 82, g: 75, b: 36, a: 255 }
-const casa3_2 = { r: 55, g: 148, b: 110, a: 255 }
-const casa4_0 = { r: 251, g: 242, b: 54, a: 255 }
-const casa4_1 = { r: 217, g: 160, b: 102, a: 255 }
-const casa4_2 = { r: 143, g: 86, b: 59, a: 255 }
-const casa4_3 = { r: 102, g: 57, b: 48, a: 255 }
-const casa5_0 = { r: 215, g: 123, b: 186, a: 255 }
-const casa5_1 = { r: 143, g: 151, b: 74, a: 255 }
-const casa5_2 = { r: 138, g: 111, b: 48, a: 255 }
+
+const grass_0 = { r: 52, g: 110, b: 116, a: 255} // clean grass
+const grass_1 = { r: 130, g: 200, b: 172, a: 255} // grass
+const grass_2 = { r: 73, g: 143, b: 135, a: 255} // mini bush grass
+
+const casa0_0 = { r: 250, g: 100, b: 47, a: 255 }
+const casa0_1 = { r: 239, g: 169, b: 63, a: 255 }
+const casa0_2 = { r: 251, g: 232, b: 150, a: 255 }
+
+// h3-h6
+const casa1_0 = { r: 159, g: 91, b: 68, a: 255 }
+const casa1_1 = { r: 95, g: 25, b: 52, a: 255 }
+const casa1_2 = { r: 140, g: 11, b: 44, a: 255 }
+const casa1_3 = { r: 162, g: 36, b: 44, a: 255 }
+
+// >> H0 - H3
+// 1st floor
+const casa2a_0 = { r: 132, g: 42, b: 88, a: 255 }
+const casa2a_1 = { r: 160, g: 59, b: 97, a: 255 }
+const casa2a_2 = { r: 191, g: 80, b: 108, a: 255 }
+const casa2a_3 = { r: 219, g: 97, b: 118, a: 255 }
+// 2nd floor
+const casa2b_0 = { r: 172, g: 73, b: 153, a: 255 }
+const casa2b_1 = { r: 199, g: 87, b: 166, a: 255 }
+const casa2b_2 = { r: 250, g: 131, b: 169, a: 255 }
+const casa2b_3 = { r: 113, g: 30, b: 81, a: 255 }
+
+// h7-h9
+// 1st floor
+const casa3a_0 = { r: 70, g: 98, b: 161, a: 255 }
+const casa3a_1 = { r: 81, g: 118, b: 184, a: 255 }
+const casa3a_2 = { r: 121, g: 156, b: 211, a: 255 }
+// 2n floor
+const casa3b_0 = { r: 39, g: 41, b: 96, a: 255 }
+const casa3b_1 = { r: 47, g: 55, b: 112, a: 255 }
+const casa3b_2 = { r: 57, g: 76, b: 135, a: 255 }
+
+// H4-H7
+const casa4_0 = { r: 185, g: 107, b: 51, a: 255 }
+const casa4_1 = { r: 204, g: 131, b: 60, a: 255 }
+const casa4_2 = { r: 210, g: 150, b: 67, a: 255 }
+const casa4_3 = { r: 218, g: 176, b: 77, a: 255 }
+
+// 1st floor
+const casa5a_0 = { r: 231, g: 220, b: 193, a: 255 }
+const casa5a_1 = { r: 95, g: 53, b: 56, a: 255 }
+const casa5a_2 = { r: 111, g: 64, b: 59, a: 255 }
+// 2nd floor
+const casa5b_0 = { r: 174, g: 147, b: 121, a: 255 }
+const casa5b_1 = { r: 187, g: 163, b: 138, a: 255 }
+const casa5b_2 = { r: 202, g: 184, b: 157, a: 255 }
+
+const fountain = {r: 142, g: 74, b: 157, a: 255}
+
 
 const code_reference = { 
   blocked: "bb",
   map_path: ".g",
-  construction: "pg",
-  mon: "()",
-  portal: "ch",
-  map_path2: ".n",
-  casa0_0: "h0",
-  casa0_1: "h1",
-  casa0_2: "h2",
-  casa1_0: "h3",
-  casa1_1: "h4",
-  casa1_2: "h5",
-  casa1_3: "h6",
-  casa2_0: "H0",
-  casa2_1: "H1",
-  casa2_2: "H2",
-  casa2_3: "H3",
-  casa3_0: "h7",
-  casa3_1: "h8",
-  casa3_2: "h9",
-  casa4_0: "H4",
-  casa4_1: "H5",
-  casa4_2: "H6",
-  casa4_3: "H7",
-  casa5_0: "H8",
-  casa5_1: "H9",
-  casa5_2: "Ha",
+  grass_0: ".n",
+  grass_1: ".b",
+  grass_2: ".v",
+
+  // construction: "pg",
+  // mon: "()",
+  // portal: "ch",
+  casa0_0: "z0",
+  casa0_1: "z1",
+  casa0_2: "z2",
+
+  casa1_0: "x0",
+  casa1_1: "x1",
+  casa1_2: "x2",
+  casa1_3: "x3",
+
+  casa2a_0: "c0",
+  casa2a_1: "c1",
+  casa2a_2: "c2",
+  casa2a_3: "c3",
+  casa2a_0: "d0",
+  casa2a_1: "d1",
+  casa2a_2: "d2",
+  casa2a_3: "d3",
+
+  casa3a_0: "v0",
+  casa3a_1: "v1",
+  casa3a_2: "v2",
+  casa3b_0: "f0",
+  casa3b_1: "f1",
+  casa3b_2: "f2",
+
+  casa4_0: "b0",
+  casa4_1: "b1",
+  casa4_2: "b2",
+  casa4_3: "b3",
+
+  casa5a_0: "n0",
+  casa5a_1: "n1",
+  casa5a_2: "n2",
+  casa5b_0: "h0",
+  casa5b_1: "h1",
+  casa5b_2: "h2",
+
   other: "S0"
 }
-var image_name = "lvl0.png";
+var image_name = "lvl1.png";
 
 function main(){
   var map_content = "";
@@ -69,6 +121,7 @@ function main(){
     const pixels = image_info.pixels;
     var line = "";
     pixels.forEach( pixel => {
+      console.log("Pixel: ", pixel);
       line += get_color_is_equal(pixel, code_reference);
       if (is_full_line(line, image_info.width)){
         map_content += '"'+line+'",\n';
@@ -80,7 +133,8 @@ function main(){
     .then(res => console.log(res))
     .catch(err => console.log(err));
   })
-  .catch( err => console.warn("index.js: got an error of MIME for Buffer from Jimp"));
+  .catch( err => console.warn(err));
+  // "index.js: got an error of MIME for Buffer from Jimp"
 }
 
 function is_same_color(pixel, color) {
@@ -98,8 +152,8 @@ function get_color_is_equal(pixel, code_reference){
     return code_reference.mon;
   } else if (is_same_color(pixel.color, portal)) {
     return code_reference.portal;
-  } else if (is_same_color(pixel.color, map_path2)) {
-    return code_reference.map_path2;
+  } else if (is_same_color(pixel.color, grass)) {
+    return code_reference.grass;
   } else if (is_same_color(pixel.color, casa0_0)) {
     return code_reference.casa0_0;
   } else if (is_same_color(pixel.color, casa0_1)) {

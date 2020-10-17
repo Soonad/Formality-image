@@ -21,11 +21,11 @@ function parse_single_image(dirname, image_name){
       .then ( res => console.log(res) )
       .catch( err => console.log(err) )
     )
-    .catch( err => console.warn("index.js: got an error of MIME for Buffer from Jimp") );
+    .catch( err => console.warn(err) );
 }
-
+// console.warn("index.js: got an error of MIME for Buffer from Jimp")
 // Runs the script in a folder
-parse_dir("./img/construction/");
+parse_dir("./img/char/");
 
 // Runs the script for a single file
 // parse_single_image("./img/construction/", "tent_01_z4p.png");
