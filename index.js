@@ -26,7 +26,7 @@ function parse_single_image(dirname, image_name){
 } //"index.js: got an error of MIME for Buffer from Jimp"
 
 // Runs the script in a folder
-parse_dir("./img/screen/");
+parse_dir("./img/lvl1/const/");
 
 // Runs the script for a single file
 // parse_single_image("./img/construction/", "tent_01_z4p.png");
