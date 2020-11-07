@@ -9,7 +9,7 @@ const lvl2 = require('./lvl2.js').map_info;
 const map_info = lvl1; // Update
 
 var image_name = "lvl1.png"; // Update
-const is_big_img = false; // Update, if tiles has size of 1x1px
+const is_big_img = true; // Update. true if has tiles of 16x16 and false is 1x1
 
 
 // Note: if .fm file is not being generated, check the image size.
