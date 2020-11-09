@@ -271,7 +271,9 @@ const map_info = [
   { name: "mid_city_38_4", code:"mf", color: { r: 218, g: 14, b: 18, a: 255}},
   { name: "mid_city_38_5", code:"mg", color: { r: 221, g: 13, b: 16, a: 255}},
 
+  { name: "path", code: ".g", color: { r: 228, g: 245, b: 180, a: 255 }},
   { name: "blocked", code: "xx", color: { r: 23, g: 102, b: 215, a: 255 }},
+  { name: "void", code: "bb", color: { r: 36, g: 33, b: 38, a: 255 }},
 
 ]
 

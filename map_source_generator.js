@@ -6,9 +6,9 @@ const lvl0 = require('./lvl0.js').map_info;
 const lvl1 = require('./lvl1.js').map_info;
 const lvl2 = require('./lvl2.js').map_info;
 
-const map_info = lvl1; // Update
+const map_info = lvl0; // Update
 
-var image_name = "lvl1.png"; // Update
+var image_name = "lvl0.png"; // Update
 const is_big_img = true; // Update. true if has tiles of 16x16 and false is 1x1
 
 
@@ -63,7 +63,7 @@ function color_is_equal(pixel, map_info){
     let obj = map_info[i];
     code += is_same_color(pixel.color, obj.color) ? obj.code : ""
   }
-  return code === "" ? "xx" : code;
+  return code === "" ? "bb" : code;
 }
 
 function is_full_line(line, width){
