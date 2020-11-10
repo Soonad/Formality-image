@@ -35,8 +35,8 @@ async function set_dicionary(dirname){
 }
 
 // Runs the script in a folder
-parse_dir("./img/font_normal/")
-.then(() => { set_dicionary("./fm_font/font_black/") })
+parse_dir("./img/font_normal_w/")
+.then(() => { set_dicionary("./fm_font/font_white/") })
 .catch((err) => console.log(err));
 
 
