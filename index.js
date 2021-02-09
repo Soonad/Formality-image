@@ -26,10 +26,10 @@ function parse_single_image(dirname, image_name){
 } //"index.js: got an error of MIME for Buffer from Jimp"
 
 // Runs the script in a folder
-parse_dir("./img/construction/others/");
+// parse_dir("./img/lvl1/floor_0_0_z1");
 
 // Runs the script for a single file
-// parse_single_image("./img/construction/", "tent_01_z4p.png");
+parse_single_image("./img/lvl1/", "floor_0_0_z1.png");
 
 // Rename images in a folder
 // Image.rename_images("./temp/casa_dentro_bg/", "home_inside_bg", 11, 8);
