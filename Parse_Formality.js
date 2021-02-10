@@ -1,35 +1,6 @@
 const fs = require('fs');
 var path = require("path");
 
-// Personagem: Mons.Assets.name_dir_frame.fm
-// - Mons.Assets.boy_l_0.fm // standing
-// - Mons.Assets.boy_l_1.fm // walking
-// - Mons.Assets.boy_l_2.fm // walking
-
-// Arquitetura: Mons.Assets.name_xy.fm
-// - Mons.Assets.house_00.fm // x=0, y=0
-// - Mons.Assets.house_10.fm // x=1, y=0
-// - Mons.Assets.house_20.fm // x=2, y=0
-
-// Chão: Mons.Assets.name.fm ou Mons.Assets.name.fm
-// - Mons.Assets.grass.fm    // tile
-// - Mons.Assets.grass_u.fm  // border up
-// - Mons.Assets.grass_l.fm  // border left
-// - Mons.Assets.grass_ru.fm // border right-up
-// - Mons.Assets.grass_lu.fm // border left-up
-// - Mons.Assets.grass_rd.fm // border right-down
-// - Mons.Assets.grass_o.fm  // border circle
-
-// Item: Mons.Assets.name_frame.fm
-// - Mons.Assets.flower_0.fm // frame 0
-// - Mons.Assets.flower_1.fm // frame 1
-
-// lrd           : left right up
-// l | r | d | u : left, right, down, up
-// o             : circle
-
-
-
 function image_to_hex(image_name, image_info) {
   var pixels = image_info.pixels;
   var width  = image_info.width;
@@ -88,16 +59,17 @@ const term_name = (image_name) => {
 }
 
 // Content to be on .fm file
-const file_content = (image_name, image_info) => {
+const file_content = (image_name, folder_name, image_info) => {
   var hex_content = image_to_hex(image_name, image_info);
   var z_index_comment = "// z_index: "+z_index(image_name);
   var scale = z_scale(image_name) ? ", will scale on y\n" : "\n";
-  return z_index_comment+scale+"Mons.Assets."+term_name(image_name)+": Image3D\n" + 
+  return z_index_comment+scale+"Mons.Assets."+folder_name+"."+term_name(image_name)+": Image3D\n" + 
     '  Image3D.parse("'+hex_content+'")';
 }
 
 async function save_fm_file(folder, image_name, content){
-  var path = "./fm_images/"+folder+"/"+"Mons.Assets."+term_name(image_name)+".fm";
+  var path = "./fm_images/"+folder+"/"+"Mons.Assets."+folder+"."+term_name(image_name)+".fm";
+  // console.log("Will save: ",path);
   try {
     fs.writeFileSync(path, content);
     return "Saved "+path;
@@ -109,8 +81,8 @@ async function save_fm_file(folder, image_name, content){
 function make_fm_file(dirname, image_info, image_name){
   var only_name = image_name.slice(0,-4);
   var folder_name = dirname.split("/")[2];
-  var content = file_content(only_name, image_info);
-  // console.log(image_info);
+  var content = file_content(only_name, folder_name, image_info);
+  // console.log(content);
   return save_fm_file(folder_name, only_name, content);
 }
 
