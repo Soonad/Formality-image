@@ -68,7 +68,7 @@ const file_content = (image_name, folder_name, image_info) => {
 }
 
 async function save_fm_file(folder, image_name, content){
-  var path = "./fm_images/"+folder+"/"+"Mons.Assets."+folder+"."+term_name(image_name)+".fm";
+  var path = "./fm_images/"+folder+"/"+term_name(image_name)+".fm";
   // console.log("Will save: ",path);
   try {
     fs.writeFileSync(path, content);
