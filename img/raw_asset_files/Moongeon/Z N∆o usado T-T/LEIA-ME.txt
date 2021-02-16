@@ -1,0 +1,3 @@
+Grande parte dos itens não usados no trello não
+possuem nem mesmo um arquivo, eram apenas
+conceitos descartados.
